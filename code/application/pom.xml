@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>ocp-binary-deploy</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+	<artifactId>maven-ear-plugin</artifactId>
+	<configuration>
+	  <module>
+	    <webModule>
+	      <artifactId>ocp-binary-deploy-web</artifactId>
+	      <contextRoot>/test</contextRoot>
+	      <groupId>io.github.agbaroni</groupId>
+	    </webModule>
+	  </module>
+	  <version>8</version>
+	</configuration>
+	<groupId>org.apache.maven.plugins</groupId>
+	<version>3.2.0</version>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>ocp-binary-deploy-web</artifactId>
+      <groupId>io.github.agbaroni</groupId>
+      <type>war</type>
+      <version>0.1.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  <groupId>io.github.agbaroni</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>ear</packaging>
+  <parent>
+    <artifactId>ocp-binary-deploy-parent</artifactId>
+    <groupId>io.github.agbaroni</groupId>
+    <version>0.1.0-SNAPSHOT</version>
+  </parent>
+</project>
