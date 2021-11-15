@@ -3,6 +3,7 @@ package io.github.agbaroni.ocpbb;
 import io.opentracing.Tracer;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.List;
@@ -18,7 +19,9 @@ import org.eclipse.microprofile.opentracing.Traced;
 @ApplicationScoped
 @ManagedBean
 @Traced
-public class Global {
+public class Global implements Serializable {
+
+    private static final long serialVersionUID = 232142442226213L;
 
     @ConfigProperty(name = "properties.directory")
     @Inject
@@ -29,7 +32,7 @@ public class Global {
     private String countriesFile;
 
     @Inject
-    Tracer tracer;
+    private Tracer tracer;
 
     private List<String> countries;
 
@@ -41,6 +44,7 @@ public class Global {
 
 	    countries = Files.readAllLines(path);
 	} catch (IOException e) {
+	    tracer.activeSpan().log(String.format("ERROR: %s", e.toString()));
 	}
     }
 
