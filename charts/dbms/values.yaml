@@ -4,4 +4,4 @@ project:
   name: binary-deploy
 secrets:
   dbms:
-    name: dbms_environment
+    name: dbms

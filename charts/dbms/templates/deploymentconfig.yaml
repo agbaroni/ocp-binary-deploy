@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: dbms
-          image: dbms:latest
+          image: '{{ printf "%s/dbms:latest" .Values.project.name }}'
           ports:
             - containerPort: 3306
           envFrom:

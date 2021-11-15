@@ -8,3 +8,7 @@ metadata:
 spec:
   tags:
     - name: latest
+      # from:
+      #   apiVersion: image.openshift.io/v1
+      #   kind: xxx
+      #   name: '{{ printf "image-registry.openshift-image-registry.svc:5000/%s/dbms" .Values.project.name }}'

@@ -1,0 +1,11 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStreamTag
+metadata:
+  labels:
+    app: {{ .Values.application.name | quote }}
+  name: latest
+  namespace: {{ .Values.project.name | quote }}
+tag:
+  lookupPolicy:
+    local: true
+  name: latest
