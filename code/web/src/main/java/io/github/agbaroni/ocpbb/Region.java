@@ -9,12 +9,12 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "REGIONS")
+@Table(name = "COUNTRIES")
 public class Region implements Serializable {
 
     private static final long serialVersionUID = 9968715619684L;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME_")
     @Id
     private String name;
 

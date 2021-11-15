@@ -7,10 +7,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 @ManagedBean
 @RequestScoped
 public class UserRequest implements Serializable {
 
+    private static final String defaultResponse = "I don't know where I'am ...";
     private static final long serialVersionUID = 2168934927597L;
 
     @Inject
@@ -19,15 +22,15 @@ public class UserRequest implements Serializable {
     @EJB
     private Local local;
 
-    private String region;
-    private String response = "Hello! I don't know where I'am ...";
+    private String country;
+    private String response = defaultResponse;
 
-    public String getRegion() {
-	return this.region;
+    public String getCountry() {
+	return this.country;
     }
 
-    public void setRegion(String region) {
-	this.region = region;
+    public void setCountry(String country) {
+	this.country = country;
     }
 
     public String getResponse() {
@@ -39,9 +42,22 @@ public class UserRequest implements Serializable {
     }
 
     public Object updateResponse() {
-	response = String.format("Hello! I'm in %s, %s.",
-				 global.getCountries().get(0),
-				 local.getRegion(region).getCapitol());
+	var fixedCountry = global.getCountries()
+	    .stream()
+	    .filter(c -> c.equalsIgnoreCase(WordUtils.capitalizeFully(country)))
+	    .findAny()
+	    .orElse(null);
+
+	response = null;
+
+	if (fixedCountry != null) {
+	    response = String.format("Hello! I'm in %s, %s.", fixedCountry,
+				     local.getRegion(fixedCountry).getCapitol());
+	}
+
+	if (response == null) {
+	    response = defaultResponse;
+	}
 
 	return null;
     }
