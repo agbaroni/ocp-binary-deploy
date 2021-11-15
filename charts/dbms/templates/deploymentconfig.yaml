@@ -1,0 +1,33 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: {{ .Values.application.name | quote }}
+  name: dbms
+  namespace: {{ .Values.project.name | quote }}
+spec:
+  replicas: 1
+  selector:
+    app: {{ .Values.application.name | quote }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application.name | quote }}
+      name: dbms
+      namespace: {{ .Values.project.name | quote }}
+    spec:
+      containers:
+        - name: dbms
+          image: dbms:latest
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: {{ .Values.secrets.dbms.name | quote }}
+          volumeMounts:
+            - mountPath: /mysql-init
+              name: setup
+      volumes:
+        - name: setup
+          configMap:
+            name: sql-init

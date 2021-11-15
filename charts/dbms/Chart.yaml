@@ -1,0 +1,5 @@
+apiVesion: v2
+maintainers:
+  - name: Alessio Giovanni Baroni
+name: dbms
+version: 0.1.0

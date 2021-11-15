@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.application.name | quote }}
+  name: dbms
+  namespace: {{ .Values.project.name | quote }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.application.name | quote }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application.name | quote }}
+      name: dbms
+      namespace: {{ .Values.project.name | quote }}
+    spec:
+      containers:
+        - name: dbms
+          image: registry.redhat.io/rhel8/mysql-80
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: {{ .Values.secrets.dbms.name | quote }}
+          volumeMounts:
+            - mountPath: /mysql-init
+              name: setup
+      volumes:
+        - name: setup
+          configMap:
+            name: sql-init

@@ -1,0 +1,10 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: {{ .Values.application.name | quote }}
+  name: dbms
+  namespace: {{ .Values.project.name | quote }}
+spec:
+  tags:
+    - name: latest
