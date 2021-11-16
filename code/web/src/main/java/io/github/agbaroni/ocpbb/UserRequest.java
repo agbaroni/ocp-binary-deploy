@@ -42,7 +42,7 @@ public class UserRequest implements Serializable {
     }
 
     public Object updateResponse() {
-	var fixedCountry = global.getCountries()
+	String fixedCountry = global.getCountries()
 	    .stream()
 	    .filter(c -> c.equalsIgnoreCase(WordUtils.capitalizeFully(country)))
 	    .findAny()

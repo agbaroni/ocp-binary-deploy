@@ -1,0 +1,25 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: {{ .Values.application.name | quote }}
+  name: dbms
+  namespace: {{ .Values.project.name | quote }}
+spec:
+  output:
+    to:
+      apiVersion: image.openshift.io/v1
+      kind: ImageStreamTag
+      name: dbms:latest
+  source:
+    configMaps:
+      - configMap:
+          name: sql-init
+        destinationDir: /mysql-init
+  strategy:
+    sourceStrategy:
+      from:
+        apiVersion: image.openshift.io/v1
+        kind: ImageStreamTag
+        name: mysql:8.0
+        namespace: openshift

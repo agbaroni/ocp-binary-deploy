@@ -14,7 +14,8 @@
 	<artifactId>maven-compiler-plugin</artifactId>
 	<configuration>
 	  <encoding>UTF-8</encoding>
-	  <release>11</release>
+	  <source>1.8</source>
+	  <target>1.8</target>
 	</configuration>
 	<groupId>org.apache.maven.plugins</groupId>
 	<version>3.8.1</version>
