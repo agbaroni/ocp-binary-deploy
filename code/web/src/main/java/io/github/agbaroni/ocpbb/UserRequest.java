@@ -2,15 +2,16 @@ package io.github.agbaroni.ocpbb;
 
 import java.io.Serializable;
 
-import javax.annotation.ManagedBean;
+//import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-@ManagedBean
-@RequestScoped
+@Named
+@SessionScoped
 public class UserRequest implements Serializable {
 
     private static final String defaultResponse = "I don't know where I'am ...";
